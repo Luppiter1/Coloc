@@ -4,18 +4,26 @@ R tool to perform colocalisation analysis on genetic variants. GWAS results for 
 Input Files:
 
 1) GWAS results
-
 GWAS results file in CSV format containing the following columns:
 
 SNP:      RS number for the SNP being tested
+
 CHR:      Chromosome number
+
 BP:       Genome coordinate od SNP
+
 BETA:     Regression Coefficient
+
 SE:       Standard Error
+
 namesnp:  SNP ID (Chr_Position_Allele1_Allele2)
+
 ALLELE0:  Allele0
+
 ALLELE1:  Allele1
+
 A1FREQ:   Frequency of Allele1
+
 leadsnp:  RS number for lead SNP
 
 2) eQTL data
