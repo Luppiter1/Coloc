@@ -1,5 +1,5 @@
 # coloc-utils
-R tool to perform colocalisation analysis on genetic variants and downstream analysis. Utilises the R package coloc (https://cran.r-project.org/web/packages/coloc/index.html). GWAS results for a phenotype of interest are compared with eqtl data (e.g. downloaded from GTEx https://gtexportal.org/) to test for colocalisation of SNPs associated with both the phenotype of interest and the expression level of a nearby gene. More information about the colocalisation method can be found here: https://academic.oup.com/hmg/article/24/12/3305/621728
+R tool to perform colocalisation analysis on genetic variants and perform downstream analysis. Utilises the R package coloc (https://cran.r-project.org/web/packages/coloc/index.html). GWAS results for a phenotype of interest are compared with eqtl data (e.g. downloaded from GTEx https://gtexportal.org/) to test for colocalisation of SNPs associated with both the phenotype of interest and the expression level of a nearby gene. More information about the colocalisation method can be found here: https://academic.oup.com/hmg/article/24/12/3305/621728
 
 ##############################################################################################################################
 Required R packages - tested versions:
