@@ -5,13 +5,13 @@ Input Files:
 
 1) GWAS results
 
-GWAS results file in CSV format containing the following columns:
+GWAS results file in CSV format must contain at least the following columns:
 
 SNP:      RS number for the SNP being tested
 
-CHR:      Chromosome number
+chr:      Chromosome number
 
-BP:       Genome coordinate od SNP
+BP:       Genome coordinate of SNP
 
 BETA:     Regression Coefficient
 
@@ -19,9 +19,9 @@ SE:       Standard Error
 
 namesnp:  SNP ID (Chr_Position_Allele1_Allele2)
 
-ALLELE0:  Allele0
+ALLELE0:  Reference Allele 
 
-ALLELE1:  Allele1
+ALLELE1:  Minor Allele
 
 A1FREQ:   Frequency of Allele1
 
@@ -29,5 +29,27 @@ leadsnp:  RS number for lead SNP
 
 2) eQTL data
 
-eQTL association data must be a CSV file or multiple CSV files corresponding to different tissues, which contain the following columns:
+eQTL association data must be a CSV file or multiple CSV files corresponding to different tissues, which must contain at least the following columns:
 
+chr:      Chromosome number
+
+position: Genome coordinate of SNP
+
+slope:    Regression Coefficient
+
+slope_se: Standard Error
+  
+newid:    SNP ID (Chr_Position_Allele1_Allele2)
+
+ALLELE1:  Minor Allele
+
+ALLELE2:  Reference Allele
+
+maf:      Frequency of Allele1
+
+leadsnp:  RS number for lead SNP
+
+
+Please note that other columns apart from those listed will be permited, but only those listed will be used for colocalisation analysis.
+
+Questions about this script or suggestions: blakeleyp@gmail.com
