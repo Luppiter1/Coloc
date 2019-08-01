@@ -1,8 +1,16 @@
 # Coloc
 R tool to perform colocalisation analysis on genetic variants. GWAS results for a phenotype of interest are compared with eqtl data (e.g. downloaded from GTEx https://gtexportal.org/) to test for colocalisation of SNPs associated with both the phenotype of interest and the expression level of a nearby gene. More information about the colocalisation method can be found here: https://academic.oup.com/hmg/article/24/12/3305/621728
 
-Input Files:
+Required R packages - tested versions:
 
+ggplot2   3.1.0     purrr     0.3.0
+tibble    1.4.2     dplyr       0.7.7
+tidyr     0.8.2     stringr     1.3.1
+readr     1.3.1     forcats     0.3.0
+coloc     3.1       data.table  1.11.8
+tidyverse 1.2.1
+
+Input Files:
 1) GWAS results
 
 GWAS results file in CSV format must contain at least the following columns:
