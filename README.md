@@ -8,7 +8,9 @@ Required R packages - tested versions:
 ggplot2 >= 3.1.0; purrr >= 0.3.0; tibble >= 1.4.2; dplyr >= 0.7.7; tidyr >= 0.8.2; stringr >= 1.3.1; readr >= 1.3.1; forcats >= 0.3.0; coloc >= 3.1; data.table >= 1.11.8; tidyverse >= 1.2.1;
 
 To run:
-        Rscript gwas-file.csv tissue_list.txt gtex_folder_path
+        Rscript gwas-file.csv tissue_list.txt base_folder_path
+        
+base_folder_path should contain a folder called gtex_eqtl, containing the gtex eqtl results files (ee below for details)
        
 ##############################################################################################################################
 
@@ -36,8 +38,8 @@ leadsnp:  RS number for lead SNP
 
 ##############################################################################################################################
 
-gtex_folder_path:- GTEx folder path containing eQTL data
-eQTL association data must be a folder containing CSV files corresponding to different tissues, each of which must contain at least the following columns:
+base_folder_path:- path containing GTEx eqtle data folder
+Create a folder in this directory called "gtex_eqtl". eQTL association data must be placed inside this folder, and must be in CSV format. Each file should correspond to a different tissue-chromosome combination (i.e. 23 chromosome files per tissue), each of which must contain at least the following columns:
 
 chr:      Chromosome number
 
