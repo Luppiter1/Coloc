@@ -9,16 +9,16 @@ calc.var<-function(x,ssize){
 }
 
 #leadloc=18652844
-window=200000
-gwas_size=446237
-eqtl_size=117
+#window=200000
+#gwas_size=446237
+#eqtl_size=117
 
 #gtexdata<-fread('/Users/pblakele/Documents/ebs_projects/colocalisation/Brain_Frontal_Cortex_BA9.allpairs_2.txt')
 #sgwas<-fread('/Users/pblakele/Documents/ebs_projects/colocalisation/DBOLT_Potassium_AllleadSNPs_AND_200KB_SPAN.csv')
 
 args = commandArgs(trailingOnly=TRUE)
 
-if (length(args)!=3) {
+if (length(args)!=6) {
   stop("At least three argument must be supplied (input file).n", call.=FALSE)
 }
 
@@ -28,6 +28,10 @@ setwd(file.path(working.dir))
 
 sgwas = fread(args[1], header=TRUE)
 tissues = fread(args[2], header=TRUE)
+
+window <- as.integer(args[4])
+gwas_size <- as.integer(args[5])
+eqtl_size <- as.integer(args[6])
 
 working.dir2<-paste(working.dir, 'gtex_eqtl', sep='/')
 setwd(file.path(working.dir2))
