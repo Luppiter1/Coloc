@@ -19,7 +19,12 @@ gwas_size = Number of samples in GWAS dataset
 eqtl_size = Number of samples in eQTL dataset
 
 base_folder_path should contain a folder called gtex_eqtl, containing the gtex eqtl results files (ee below for details)
-       
+
+
+OUTPUT:
+
+colocABFtest-results.csv contains results summary of colocalisation tests performed on each region of interest in different tissues.
+
 ##############################################################################################################################
 
 gwas_file.csv:- GWAS results file in CSV format must contain at least the following columns:
