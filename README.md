@@ -8,8 +8,16 @@ Required R packages - tested versions:
 ggplot2 >= 3.1.0; purrr >= 0.3.0; tibble >= 1.4.2; dplyr >= 0.7.7; tidyr >= 0.8.2; stringr >= 1.3.1; readr >= 1.3.1; forcats >= 0.3.0; coloc >= 3.1; data.table >= 1.11.8; tidyverse >= 1.2.1;
 
 To run:
-        Rscript gwas-file.csv tissue_list.txt base_folder_path
+        Rscript gwas-file.csv tissue_list.txt base_folder_path bp_window gwas_size eqtl_size
         
+Options
+
+bp_window = The range in base pairs surrounding the lead snp which is used to test for colocalisation (recommended value = 200000)
+
+gwas_size = Number of samples in GWAS dataset 
+
+eqtl_size = Number of samples in eQTL dataset
+
 base_folder_path should contain a folder called gtex_eqtl, containing the gtex eqtl results files (ee below for details)
        
 ##############################################################################################################################
