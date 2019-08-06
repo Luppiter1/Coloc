@@ -21,11 +21,33 @@ eqtl_size = Number of samples in eQTL dataset
 base_folder_path should contain a folder called gtex_eqtl, containing the gtex eqtl results files (ee below for details)
 
 
+##############################################################################################################################
+
 OUTPUT:
 
 colocABFtest-results.csv contains results summary of colocalisation tests performed on each region of interest in different tissues.
 
+nsnp:           Number of SNPs within window
+
+PP.H0.abf:      Probability that neither trait has a genetic association in the region
+
+PP.H1.abf:      Probability only trait 1 (GWAS-phenotype) has a genetic association in the region
+
+PP.H2.abf:      Probability only trait 2 (eQTL-expression) has a genetic association in the region
+
+PP.H3.abf:      Probability both traits are associated, but with different causal variants
+
+PP.H4.abf:      Probability both traits are associated and share a single causal variant
+
+tissue:         Tissue for eQTL gene expression association
+
+Lead_SNP        Lead SNP RS number
+
+SNP_LOC         Lead SNP genome coordinate
+
 ##############################################################################################################################
+
+INPUT GWAS: 
 
 gwas_file.csv:- GWAS results file in CSV format must contain at least the following columns:
 
@@ -50,6 +72,8 @@ A1FREQ:   Frequency of Allele1
 leadsnp:  RS number for lead SNP
 
 ##############################################################################################################################
+
+INPUT eQTL:
 
 base_folder_path:- path containing GTEx eqtle data folder
 Create a folder in this directory called "gtex_eqtl". eQTL association data must be placed inside this folder, and must be in CSV format. Each file should correspond to a different tissue-chromosome combination (i.e. 23 chromosome files per tissue), each of which must contain at least the following columns:
