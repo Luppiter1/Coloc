@@ -52,7 +52,7 @@ sgwas<-sgwas %>% distinct(BP, .keep_all = TRUE)
 leads<-sgwas %>% distinct(leadsnp, .keep_all = FALSE)
 idrange=length(leads[[1]])
 
-#tissues<-c('Brain_frontal_cortex_', 'Artery_Coronary_')
+tissues<-c('Brain_frontal_cortex', 'Artery_Coronary')
 tissue_range<-length(tissues)
 
 for (i in 1:idrange){
@@ -68,6 +68,7 @@ for (i in 1:idrange){
     for (z in 1:tissue_range){
       ofile=paste(tissues[z], '_', chrom, ".txt", sep="")
       gtexdata<-fread(ofile)
+      print(ofile, z)
         if (ncol(gtexdata)==13){
           headlist<-c('gene_id', 'chr', 'position', 'allele1', 'allele2', 'samp', 'tss_distance', 'ma_samples', 'ma_count', 'maf', 'pval_nominal', 'slope', 'slope_se')
           colnames(gtexdata)<-headlist
@@ -97,7 +98,13 @@ for (i in 1:idrange){
       cat(sprintf("\"%f\" \"%s\" \"%s\" \"%s\" \"%s\"", i, leadid, leadloc, chrom, ofile))
       #colocsum<-cbind(my.res$summary, sgwas.subs$SNP)
       colocsum<-my.res$summary
-      print (colocsum)
+      tissues.vec<-as.vector(tissues[z])
+      leadsnp<-as.vector(c(leadid, leadloc))
+      names(tissues.vec)<-'tissue'
+      names(leadsnp)<-c('Lead_SNP', 'SNP_LOC')
+      colocsum<-append(colocsum, tissues.vec)
+      colocsum<-append(colocsum, leadsnp)
+      #print (colocsum)
           if (i==1){
             reslist<-colocsum
           }
@@ -105,44 +112,8 @@ for (i in 1:idrange){
     }
 }
 
-#manhattan plot
-plot(gtexdata$position, -log10(gtexdata$pval_nominal), xlab='chromosome position', ylab='-log10 p-value', pch=19)
+setwd(file.path(working.dir))
+write.csv(reslist, file='colocABFtest-results.csv')
 
-abf.plot <- function(coloc.obj, Pos=1:nrow(coloc.obj@results),
-                     chr=NULL, pos.start=min(Pos), pos.end=max(Pos),
-                     trait1="trait 1", trait2="trait 2") {
-  
-  
-  d.pp1 = signif(coloc.obj$summary[3], 3)
-  d.pp2 = signif(coloc.obj$summary[4], 3)
-  d.pp4 = signif(coloc.obj$summary[6], 3)
-  df = coloc.obj$results
-  
-  df$pp1 <- exp(df$lABF.df1 - logsum(df$lABF.df1))
-  df$pp2 <- exp(df$lABF.df2 - logsum(df$lABF.df2))
-  df$pos <- Pos
-  
-  df <- melt(df[,c("snp","pos","pp1","pp2","SNP.PP.H4")], id.vars=c("snp","pos"))
-  df$variable <- sub("pp1", paste0("pp1 (", trait1, ") = ", d.pp1) ,df$variable)
-  df$variable <- sub("pp2", paste0("pp2 (", trait2, ") = ", d.pp2) ,df$variable)
-  df$variable <- sub("SNP.PP.H4", paste0("pp4 (Both) = ", d.pp4) ,df$variable)
-  
-  
-  ## identify and label the top 3 SNPs that have highest pp1, pp2 or pp4
-  
-  df.ord = df[order(df$value, decreasing=TRUE), ]
-  snps = unique(df.ord$snp)[1:3]
-  
-  label <- NULL # avoid R CMD check NOTE
-  df$label <- ifelse(df$snp %in% snps, df$snp,"")
-  ttl <- paste0(trait1, ' & ', trait2, ' (chr', chr, ': ', pos.start, '-', pos.end, ')')
-  
-  ggplot(df, aes_string(x="pos",y="value")) +
-    geom_point(data=subset(df,label==""),size=1.5) +
-    geom_point(data=subset(df,label!=""),col="red",size=1.5) +
-    geom_text(aes_string(label="label"),hjust=-0.1,vjust=0.5,size=2.5,col="red") +
-    facet_grid(variable ~ .) +
-    theme(legend.position="none") + xlab(paste("Chromosome", chr, sep=' ')) + ylab("Posterior probability") + 
-    ggtitle(ttl)
-  
-}
+#manhattan plot 
+plot(gtexdata$position, -log10(gtexdata$pval_nominal), xlab='chromosome position', ylab='-log10 p-value', pch=19)
