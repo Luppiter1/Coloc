@@ -52,7 +52,7 @@ sgwas<-sgwas %>% distinct(BP, .keep_all = TRUE)
 leads<-sgwas %>% distinct(leadsnp, .keep_all = FALSE)
 idrange=length(leads[[1]])
 
-#tissues<-c('Brain_frontal_cortex_', 'Artery_Coronary_')
+tissues<-c('Brain_frontal_cortex', 'Artery_Coronary')
 tissue_range<-length(tissues)
 
 for (i in 1:idrange){
@@ -68,6 +68,7 @@ for (i in 1:idrange){
     for (z in 1:tissue_range){
       ofile=paste(tissues[z], '_', chrom, ".txt", sep="")
       gtexdata<-fread(ofile)
+      print(ofile, z)
         if (ncol(gtexdata)==13){
           headlist<-c('gene_id', 'chr', 'position', 'allele1', 'allele2', 'samp', 'tss_distance', 'ma_samples', 'ma_count', 'maf', 'pval_nominal', 'slope', 'slope_se')
           colnames(gtexdata)<-headlist
@@ -97,7 +98,13 @@ for (i in 1:idrange){
       cat(sprintf("\"%f\" \"%s\" \"%s\" \"%s\" \"%s\"", i, leadid, leadloc, chrom, ofile))
       #colocsum<-cbind(my.res$summary, sgwas.subs$SNP)
       colocsum<-my.res$summary
-      print (colocsum)
+      tissues.vec<-as.vector(tissues[z])
+      leadsnp<-as.vector(c(leadid, leadloc))
+      names(tissues.vec)<-'tissue'
+      names(leadsnp)<-c('Lead_SNP', 'SNP_LOC')
+      colocsum<-append(colocsum, tissues.vec)
+      colocsum<-append(colocsum, leadsnp)
+      #print (colocsum)
           if (i==1){
             reslist<-colocsum
           }
@@ -108,5 +115,5 @@ for (i in 1:idrange){
 setwd(file.path(working.dir))
 write.csv(reslist, file='colocABFtest-results.csv')
 
-#manhattan plot
+#manhattan plot 
 plot(gtexdata$position, -log10(gtexdata$pval_nominal), xlab='chromosome position', ylab='-log10 p-value', pch=19)
